@@ -5,19 +5,21 @@ import toml
 from pathlib import Path
 
 from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from bs4 import BeautifulSoup
 
 app = FastAPI()
+app.mount("/assets", StaticFiles(directory="subapps/blog/assets"), name="assets")
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="subapps/blog/templates")
 
 
 @app.get("/")
 async def index():
-    return HTMLResponse(content=Path("index.html").read_text())
+    return HTMLResponse(content=Path("subapps/blog/index.html").read_text())
 
 
 @app.get("/articles/{article_name}", response_class=HTMLResponse)
@@ -27,7 +29,7 @@ async def read_article(request: Request, article_name: str):
 
 
 def get_context(article_name: str) -> dict:
-    meta = toml.load(f"./articles/{article_name}/meta.toml")
+    meta = toml.load(f"subapps/blog/articles/{article_name}/meta.toml")
     style, content = get_content(article_name)
 
     context = {
@@ -44,7 +46,7 @@ def get_context(article_name: str) -> dict:
 
 
 def get_content(article_name: str) -> str:
-    article = Path(f"./articles/{article_name}/article.html")
+    article = Path(f"subapps/blog/articles/{article_name}/article.html")
     # breakpoint()
     soup = BeautifulSoup(article.read_text(), features="html.parser")
     style = soup.find("style")
