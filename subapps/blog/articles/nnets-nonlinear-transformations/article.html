@@ -1,23 +1,3 @@
-<!doctype html>
-<meta charset=utf-8>
-<meta name=author content="Francis Billones">
-<meta name=description content="Neural networks are closer to matrices than actual brains.">
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width">
-<meta property="og:image" content="https://www.blog.francisdb.net/assets/logo.svg">
-<meta property="og:description" content="Neural networks are closer to matrices than actual brains.">
-<meta property="og:title" content="Neural nets are non-linear linear transformations">
-<meta property="og:url"
-    content="https://blog.francisdb.net/articles/Neural nets are non-linear linear transformations.md">
-<meta property="og:type" content="website">
-<meta name=twitter:card content="summary_large_image">
-<meta name=twitter:site content="@francishubertdb">
-<meta name=twitter:creator content="@francishubertdb">
-<meta name=twitter:title content="Neural nets are non-linear linear transformations">
-<meta name=twitter:description content="Neural networks are closer to matrices than actual brains.">
-<meta name=twitter:image content="https://www.blog.francisdb.net/assets/logo.svg">
-<title>Neural nets are non-linear linear transformations</title>
-<link rel=icon href=https://blog.francisdb.net/assets/logo.svg type=image/svg+xml>
 <style>
     html {
         margin: 0;
@@ -301,13 +281,7 @@
         list-style: none
     }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<header id=main-header><a href=https://francisdb.net class=logo><img height=30px width=30px
-            src=https://blog.francisdb.net/assets/logo.svg alt="A logo combining the letters 'F' and 'H'"
-            type=image/svg+xml>
-        <nav class=menu><a href=https://francisdb.net />Home
-    </a><a href=https://blog.francisdb.net/ class=active>Blog</a></nav>
-</header>
+
 <main>
     <header id=content-header>
         <div><strong>Francis Billones, <a href=http://twitter.com/francishubertdb>@francishubertdb</a></strong></div>
@@ -326,7 +300,8 @@
                 can and will be done by silicon. The problem is figuring out the computations in the first place.</em>)
         </p>
         <p>Tangent aside, the following is a multi-layer feedforward neural network as it is commonly visualized, and
-            how they’re commonly explained: <img src="https://blog.francisdb.net/assets/images/nn.png"><br> A single
+            how they’re commonly explained: <img
+                src="https://blog.francisdb.net/assets/articles/nnets-nonlinear-transformations/nn.png"><br> A single
             “neuron” in this network has a “weight” and a “bias”. The neuron takes in a real-valued number as input, and
             transforms it according to the following equation: <span class="math inline">\(n(x) = n_{w} \cdot x +
                 n_{b}\)</span> (<em>see how it’s a linear equation? This is important for later)</em>. It then feeds the
@@ -353,15 +328,16 @@
             idea of a coordinate to a 2-vector.</p>
         <p>We can combine linear transformations to perform prediction on data.</p>
         <p>For example, take the following scatter plot: <img
-                src="https://blog.francisdb.net/assets/images/plot1.png""><br><p>If we wanted to come up with our own series of linear transformations to categorise this data, we might come up with the following: <ol><li><strong>Rotation</strong> Imagine the linear boundary between both groups. We rotate the data such that that linear boundary is now horizontal: <img src="
-                https://blog.francisdb.net/assets/images/plot2.png"><br></li>
+                src="https://blog.francisdb.net/assets/articles/nnets-nonlinear-transformations/plot1.png""><br><p>If we wanted to come up with our own series of linear transformations to categorise this data, we might come up with the following: <ol><li><strong>Rotation</strong> Imagine the linear boundary between both groups. We rotate the data such that that linear boundary is now horizontal: <img src="
+                https://blog.francisdb.net/assets/articles/nnets-nonlinear-transformations/plot2.png"><br></li>
             <li><strong>Translation</strong> Now, with the rotation being done, our next transformation is not actually
                 a linear transformation, but rather a translation along the y-axis such that both groups are separated
                 by the y-axis, through the use of a bias vector instead of a weight matrix: <img
-                    src="https://blog.francisdb.net/assets/images/plot3.png"></li>
+                    src="https://blog.francisdb.net/assets/articles/nnets-nonlinear-transformations/plot3.png"></li>
             <li> “<strong>Squeeze</strong>” Now, we use a singular matrix to transform the data from 2D Euclidean space
                 to 1D Euclidean space, preserving the y-coordinate: <img
-                    src="https://blog.francisdb.net/assets/images/plot4.png"><br></br> Now, our hypothetical neural
+                    src="https://blog.francisdb.net/assets/articles/nnets-nonlinear-transformations/plot4.png"><br></br>
+                Now, our hypothetical neural
                 network’s outputs can be easily interpretable - anything less than 0 is part of the “red” class, and
                 anything above 0 is part of the “blue” class.<p>These three linear transformations don’t need to be in
                     separate layers, either - they can be easily combined to one layer, by multiplying them all: <span
@@ -372,7 +348,7 @@
         </p>
         <h2>But how about more complex data?</h2>
         <p>Not all data is linearly separable by default. For example, observe this scatter plot: <img
-            src="https://blog.francisdb.net/assets/images/spiral.png"> There
+                src="https://blog.francisdb.net/assets/articles/nnets-nonlinear-transformations/spiral.png"> There
             is no obvious linear pattern we can observe here. Therefore, we have to <strong>make</strong> our linear
             transformations <strong>non-linear</strong>, and we do that by interspersing them with nonlinear functions:
             <span class="math display">\[l(x) = \sigma(l_W \cdot x + l_b)\]</span> where <span
@@ -381,7 +357,7 @@
         <p>With this added functionality, here’s a visualization of how a nonlinear function can
             <strong>transform</strong> nonlinear data into linear data:
         </p>
-        <p><img src="https://blog.francisdb.net/assets/images/spiral.gif"></p>
+        <p><img src="https://blog.francisdb.net/assets/articles/nnets-nonlinear-transformations/spiral.gif"></p>
         <p>Linearly separable data is much easier to deal with! </p>
         <h3 id=conclusion>Conclusion</h3>
         <p>In this article, we showed that neural networks (at least, the feed-forward neural network) are not what they
@@ -399,4 +375,3 @@
             images and natural language. </p>
     </article>
 </main>
-<footer>© 2022 Francis Billones, loaded <strong>{{size}}</strong></footer>
