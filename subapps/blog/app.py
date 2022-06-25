@@ -42,7 +42,7 @@ async def read_article(request: Request, article_name: str):
 
 def get_context(article_name: str) -> dict:
     meta = toml.load(f"subapps/blog/articles/{article_name}/meta.toml")
-    style, content = get_content(article_name)
+    content = get_content(article_name)
 
     context = {
         "author": meta["author"]["name"],
@@ -50,7 +50,7 @@ def get_context(article_name: str) -> dict:
         "title": meta["meta"]["title"],
         "url": f'https://blog.francisdb.net/articles/{meta["meta"]["url_title"]}',
         "date": meta["meta"]["date"],
-        "style": style,
+        # "style": minify(style, minify_css=True),
         "content": minify(content, minify_css=False, minify_js=False),
     }
 
@@ -60,6 +60,6 @@ def get_context(article_name: str) -> dict:
 def get_content(article_name: str) -> str:
     article = Path(f"subapps/blog/articles/{article_name}/article.html")
     soup = BeautifulSoup(article.read_text(), features="html.parser")
-    style = soup.find("style")
+    # style = soup.find("style")
     article = soup.find("article")
-    return style.decode_contents(), article.decode_contents()
+    return article.decode_contents()
